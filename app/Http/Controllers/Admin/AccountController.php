@@ -4,62 +4,50 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\AccountRepository;
 
 class AccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $accountRepo;
+
+    // public function __construct(AccountRepository $accountRepo)
+    // {
+    //     $this->middleware('auth');
+    //     $this->accountRepo = $accountRepo;
+    // }
+
     public function index()
     {
-        //
+        $accounts = $this->accountRepo->all();
+        return view('admin.accounts.index', compact('accounts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.accounts.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $account = $this->accountRepo->create($request->all());
+        return redirect()->route('admin.accounts.index')->with('success', 'Account created');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $account = $this->accountRepo->find($id);
+        return view('admin.accounts.edit', compact('account'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $this->accountRepo->update($id, $request->all());
+        return redirect()->route('admin.accounts.index')->with('success', 'Account updated');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $this->accountRepo->delete($id);
+        return redirect()->route('admin.accounts.index')->with('success', 'Account deleted');
     }
 }
