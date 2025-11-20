@@ -13,7 +13,18 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->string('title');
+            $table->string('username');
+            $table->string('password');
+            $table->decimal('price', 13, 2);
+            $table->enum('status', ['available', 'sold'])->default('available');
+            $table->foreignId('sold_to')->nullable()->constrained('users')->onDelete('set null');
+            $table->timestamp('sold_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
