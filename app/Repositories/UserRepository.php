@@ -6,6 +6,11 @@ use App\Models\User;
 
 class UserRepository
 {
+    public function paginate($perPage)
+    {
+        return User::query()->paginate($perPage);
+    }
+
     public function all()
     {
         return User::all();
@@ -22,18 +27,14 @@ class UserRepository
         return User::create($data);
     }
 
-    public function update($id, array $data)
+    public function update(User $user, array $data)
     {
-        $user = $this->find($id);
-        if (isset($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
-        }
-        return $user->update($data);
+        $user->update($data);
+        return $user;
     }
 
-    public function delete($id)
+    public function delete(User $user)
     {
-        $user = $this->find($id);
         return $user->delete(); // soft delete
     }
 
