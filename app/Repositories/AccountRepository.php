@@ -21,15 +21,14 @@ class AccountRepository
         return Account::create($data);
     }
 
-    public function update($id, array $data)
+    public function update(Account $account, array $data)
     {
-        $account = $this->find($id);
-        return $account->update($data);
+        $account->update($data); // این true/false میده
+        return $account;
     }
 
-    public function delete($id)
+    public function delete(Account $account)
     {
-        $account = $this->find($id);
         return $account->delete();
     }
 
