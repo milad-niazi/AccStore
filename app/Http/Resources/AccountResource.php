@@ -14,6 +14,18 @@ class AccountResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'category_id ' => $this->category_id ,
+            'title' => $this->title,
+            'username' => $this->username,
+            'password' => $this->password,
+            'price' => $this->price,
+            'status' => $this->status,
+            'sold_to' => $this->sold_to ,
+            'sold_at' => $this->sold_at,
+            'expires_at' => $this->expires_at,
+            'description' => $this->description,
+        ];
     }
 }

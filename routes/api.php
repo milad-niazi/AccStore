@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AccountController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -12,3 +13,4 @@ use Illuminate\Support\Facades\Route;
 
 route::apiResource('users', UserController::class);
 route::apiResource('accounts', AccountController::class);
+route::apiResource('categories', CategoryController::class);

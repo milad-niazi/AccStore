@@ -35,4 +35,14 @@ return Application::configure(basePath: dirname(__DIR__))
                 return $apiController->errorResponse($ex->getMessage(), 404);
             }
         );
+        $exceptions->render(
+            function (Exception $ex) use ($apiController) {
+                return $apiController->errorResponse($ex->getMessage(), 404);
+            }
+        );
+        $exceptions->render(
+            function (Error $ex) use ($apiController) {
+                return $apiController->errorResponse($ex->getMessage(), 404);
+            }
+        );
     })->create();
