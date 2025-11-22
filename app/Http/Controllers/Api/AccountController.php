@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Account;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\AccountResource;
@@ -68,7 +67,7 @@ class AccountController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(Account $account)
+    public function show($account)
     {
         return $this->successResponse(new AccountResource($this->accountRepo->find($account)), 200);
     }
@@ -76,7 +75,7 @@ class AccountController extends ApiController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Account $account)
+    public function update(Request $request, $account)
     {
         $validator = Validator::make($request->all(), [
             'category_id' => 'required|exists:categories,id',
@@ -125,7 +124,7 @@ class AccountController extends ApiController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Account $account)
+    public function destroy($account)
     {
         $this->accountRepo->delete($account);
         return $this->successResponse('Account Deleted!', 200);

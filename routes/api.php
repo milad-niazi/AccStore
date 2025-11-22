@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\OrderItemController;
+use App\Http\Controllers\Api\TransactionController;
 
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
@@ -22,3 +23,4 @@ route::apiResource('accounts', AccountController::class);
 route::apiResource('categories', CategoryController::class);
 route::apiResource('orders', OrderController::class);
 route::apiResource('order-items', OrderItemController::class);
+route::apiResource('transactions', TransactionController::class);
