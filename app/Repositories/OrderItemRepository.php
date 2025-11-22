@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\OrderItem;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class OrderItemRepository
 {
@@ -12,6 +13,10 @@ class OrderItemRepository
     }
     public function findById($id)
     {
+        $orderitem = OrderItem::find($id);
+        if (!$orderitem) {
+            throw new ModelNotFoundException("Model not found");
+        }
         return OrderItem::with(['account', 'order.buyer'])->findOrFail($id);
     }
 
@@ -19,13 +24,21 @@ class OrderItemRepository
     {
         return OrderItem::create($data);
     }
-    public function update(OrderItem $order, array $data)
+    public function update($id, array $data)
     {
-        $order->update($data);
-        return $order;
+        $orderitem = OrderItem::find($id);
+        if (!$orderitem) {
+            throw new ModelNotFoundException("Model not found");
+        }
+        $id->update($data);
+        return $id;
     }
-    public function delete($orderItem)
+    public function delete($id)
     {
-        return $orderItem->delete();
+        $orderitem = OrderItem::find($id);
+        if (!$orderitem) {
+            throw new ModelNotFoundException("Model not found");
+        }
+        return $id->delete();
     }
 }
