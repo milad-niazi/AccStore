@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepository
 {
@@ -18,12 +19,20 @@ class UserRepository
 
     public function find($id)
     {
+        $user = User::find($id);
+        if (!$user) {
+            throw new ModelNotFoundException("Model not found");
+        }
         return User::find($id);
     }
     public function findByEmail($email)
-{
-    return User::where('email', $email)->first();
-}
+    {
+        $user = User::find($email);
+        if (!$user) {
+            throw new ModelNotFoundException("Model not found");
+        }
+        return User::where('email', $email)->first();
+    }
 
 
     public function create(array $data)
@@ -32,15 +41,23 @@ class UserRepository
         return User::create($data);
     }
 
-    public function update(User $user, array $data)
+    public function update($id, array $data)
     {
+        $user = User::find($id);
+        if (!$user) {
+            throw new ModelNotFoundException("Model not found");
+        }
         $user->update($data);
         return $user;
     }
 
-    public function delete(User $user)
+    public function delete($id)
     {
-        return $user->delete(); // soft delete
+        $user = User::find($id);
+        if (!$user) {
+            throw new ModelNotFoundException("Model not found");
+        }
+        return $user->delete();
     }
 
     public function restore($id)
