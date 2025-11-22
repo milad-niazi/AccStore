@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Account;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AccountRepository
 {
@@ -11,8 +12,12 @@ class AccountRepository
         return Account::with('category', 'buyer')->get();
     }
 
-    public function find($id)
+    public function findById($id)
     {
+        $account = Account::find($id);
+        if (!$account) {
+            throw new ModelNotFoundException("Model not found");
+        }
         return Account::with('category', 'buyer')->find($id);
     }
 
@@ -21,22 +26,22 @@ class AccountRepository
         return Account::create($data);
     }
 
-    public function update(Account $account, array $data)
+    public function update($id, array $data)
     {
+        $account = Account::find($id);
+        if (!$account) {
+            throw new ModelNotFoundException("Model not found");
+        }
         $account->update($data);
         return $account;
     }
 
-    public function delete(Account $account)
+    public function delete($id)
     {
+        $account = Account::find($id);
+        if (!$account) {
+            throw new ModelNotFoundException("Model not found");
+        }
         return $account->delete();
-    }
-
-    public function available()
-    {
-        return Account::where('status', 'available')
-            ->where(function ($q) {
-                $q->whereNull('expires_at')->orWhere('expires_at', '>', now());
-            })->get();
     }
 }
