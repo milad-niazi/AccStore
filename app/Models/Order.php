@@ -31,4 +31,13 @@ class Order extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function buyer()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

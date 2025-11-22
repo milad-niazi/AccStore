@@ -23,7 +23,7 @@ class AccountRepository
 
     public function update(Account $account, array $data)
     {
-        $account->update($data); // این true/false میده
+        $account->update($data);
         return $account;
     }
 
