@@ -41,4 +41,5 @@ class TransactionRepository
         }
         return $transaction->delete();
     }
+
 }

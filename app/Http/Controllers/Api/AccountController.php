@@ -69,7 +69,7 @@ class AccountController extends ApiController
      */
     public function show($account)
     {
-        return $this->successResponse(new AccountResource($this->accountRepo->find($account)), 200);
+        return $this->successResponse(new AccountResource($this->accountRepo->findById($account)), 200);
     }
 
     /**

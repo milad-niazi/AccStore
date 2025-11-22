@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Category;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\CategoryResource;
@@ -41,22 +39,10 @@ class CategoryController extends ApiController
             return $this->errorResponse($validator->errors(), 422);
         }
 
-        $data = $request->only('name', 'description');
+        $data = $request->only('name', 'description', 'primary_image');
 
-        $slug = Str::slug($data['name']);
-        $originalSlug = $slug;
-        $counter = 1;
-        while (Category::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $counter++;
-        }
-        $data['slug'] = $slug;
-        if ($request->hasFile('primary_image')) {
-            $file = $request->file('primary_image');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('categories'), $filename);
-            $data['primary_image'] = $filename;
-        }
-        $category = Category::create($data);
+        $category = $this->categoryRepo->create($data);
+
         return $this->successResponse(new CategoryResource($category), 201);
     }
 
@@ -71,7 +57,7 @@ class CategoryController extends ApiController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $category)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'nullable|string|max:255',
@@ -82,31 +68,17 @@ class CategoryController extends ApiController
         if ($validator->fails()) {
             return $this->errorResponse($validator->errors(), 422);
         }
+        $data = $request->only('name', 'description', 'primary_image');
 
-        $data = $request->only('name', 'description');
+        $category = $this->categoryRepo->update($category, $data);
 
-        $slug = Str::slug($data['name']);
-        $originalSlug = $slug;
-        $counter = 1;
-        while (Category::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $counter++;
-        }
-        $data['slug'] = $slug;
-        if ($request->hasFile('primary_image')) {
-            $file = $request->file('primary_image');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('categories'), $filename);
-            $data['primary_image'] = $filename;
-        }
-        $category->update($data);
-        return $this->successResponse(new CategoryResource($category), 201);
-
+        return $this->successResponse(new CategoryResource($category), 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($category)
     {
         $this->categoryRepo->delete($category);
         return $this->successResponse('Category Deleted!', 200);
