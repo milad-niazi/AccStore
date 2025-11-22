@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CategoryRepository
 {
@@ -13,6 +14,10 @@ class CategoryRepository
 
     public function find($id)
     {
+        $category = Category::find($id);
+        if (!$category) {
+            throw new ModelNotFoundException("Model not found");
+        }
         return Category::with('accounts')->find($id);
     }
 
@@ -22,15 +27,23 @@ class CategoryRepository
         return Category::create($data);
     }
 
-    public function update(Category $category, array $data)
+    public function update($id, array $data)
     {
+        $category = Category::find($id);
+        if (!$category) {
+            throw new ModelNotFoundException("Model not found");
+        }
         $category->update($data);
         return $category;
     }
 
 
-    public function delete(Category $category)
+    public function delete($id)
     {
+        $category = Category::find($id);
+        if (!$category) {
+            throw new ModelNotFoundException("Model not found");
+        }
         $category->delete();
         return $category;
     }
