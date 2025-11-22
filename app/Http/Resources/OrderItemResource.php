@@ -21,11 +21,9 @@ class OrderItemResource extends JsonResource
             'id' => $this->id,
             'order_id' => $this->order_id,
             'price' => $this->price,
-
             'account' => new AccountResource(
                 $this->whenLoaded('account')
             ),
-
             'buyer' => new UserResource(
                 $this->whenLoaded('order') ? $this->order->buyer : null
             ),

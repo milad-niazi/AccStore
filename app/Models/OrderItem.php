@@ -16,13 +16,13 @@ class OrderItem extends Model
 
     protected $guarded = [];
 
-    public function order()
-    {
-        return $this->belongsTo(Order::class);
-    }
-
     public function account()
     {
         return $this->belongsTo(Account::class);
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
     }
 }
