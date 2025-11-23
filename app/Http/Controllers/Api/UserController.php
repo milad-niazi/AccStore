@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\UserResource;
@@ -53,7 +52,7 @@ class UserController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show($user)
     {
         return $this->successResponse(new UserResource($this->userRepo->find($user)), 200);
     }
@@ -61,7 +60,7 @@ class UserController extends ApiController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $user)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -89,7 +88,7 @@ class UserController extends ApiController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy($user)
     {
         $this->userRepo->delete($user);
         return $this->successResponse('User Deleted!', 200);

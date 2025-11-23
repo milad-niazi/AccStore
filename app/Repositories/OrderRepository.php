@@ -7,6 +7,35 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class OrderRepository
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Order Counts
+    |--------------------------------------------------------------------------
+    */
+    public function allOrdersCount()
+    {
+        return Order::count();
+    }
+
+    public function completedOrdersCount()
+    {
+        return Order::where('status', 'completed')->count();
+    }
+
+    public function pendingOrdersCount()
+    {
+        return Order::where('status', 'pending')->count();
+    }
+
+    public function totalRevenue()
+    {
+        return Order::where('status', 'completed')->sum('price');
+    }
+    /*
+    |--------------------------------------------------------------------------
+    | CRUD Methods
+    |--------------------------------------------------------------------------
+    */
     public function all()
     {
         return Order::with('user')->get();

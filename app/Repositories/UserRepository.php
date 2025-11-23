@@ -2,11 +2,40 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepository
 {
+    /*
+    |--------------------------------------------------------------------------
+    | User Counts
+    |--------------------------------------------------------------------------
+    */
+    public function allUsersCount()
+    {
+        return User::count();
+    }
+    public function activeUsersCount()
+    {
+        return User::where('status', 'active')->count();
+    }
+    public function disabledUsersCount()
+    {
+        return User::where('status', 'disabled')->count();
+    }
+    public function newUsersLastWeek()
+    {
+        $oneWeekAgo = Carbon::now()->subWeek();
+        return User::where('created_at', '>=', $oneWeekAgo)->count();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CRUD Methods
+    |--------------------------------------------------------------------------
+    */
     public function paginate($perPage)
     {
         return User::query()->paginate($perPage);

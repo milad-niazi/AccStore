@@ -2,11 +2,38 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\Models\Account;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AccountRepository
 {
+    /*
+    |--------------------------------------------------------------------------
+    | User Counts
+    |--------------------------------------------------------------------------
+    */
+    public function allAccountsCount()
+    {
+        return Account::count();
+    }
+    public function soldAccountsCount()
+    {
+        return Account::where('status', 'sold')->count();
+    }
+    public function newAccountsLastWeek()
+    {
+        $oneWeekAgo = Carbon::now()->subWeek();
+        return Account::where('status', 'sold')
+            ->where('updated_at', '>=', $oneWeekAgo)
+            ->count();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | CRUD Methods
+    |--------------------------------------------------------------------------
+    */
     public function all()
     {
         return Account::with('category', 'buyer')->get();
