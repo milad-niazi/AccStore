@@ -19,15 +19,21 @@
             <nav class="mt-6">
                 <ul class="flex flex-col gap-2">
                     <li>
-                        <a href="{{ route('admin.dashboard.list') }}"
+                        <a href="{{ route('admin.dashboard.index') }}"
                             class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.dashboard.*') ? 'bg-gray-200' : '' }}">
                             Dashboard
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.users.list') }}"
+                        <a href="{{ route('admin.users.index') }}"
                             class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.users.*') ? 'bg-gray-200' : '' }}">
                             Users
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.categories.index') }}"
+                            class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.categories.*') ? 'bg-gray-200' : '' }}">
+                            Categories
                         </a>
                     </li>
                     <li>
@@ -40,12 +46,6 @@
                         <a href="#"
                             class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.orders.*') ? 'bg-gray-200' : '' }}">
                             Orders
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.categories.*') ? 'bg-gray-200' : '' }}">
-                            Categories
                         </a>
                     </li>
                 </ul>

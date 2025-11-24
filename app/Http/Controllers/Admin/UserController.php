@@ -36,7 +36,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        // return view('admin.users.create');
     }
 
     /**
@@ -52,7 +52,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // return view('admin.users.show');
+
     }
 
     /**
@@ -60,7 +61,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        // $user = $this->userRepo->find($id);
+        // return view('admin.users.edit' , compact('user'));
     }
 
     /**
@@ -76,6 +78,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->userRepo->delete($id);
+        return redirect()
+            ->route('admin.users.index')
+            ->with('success', 'کاربر با موفقیت حذف شد.');
     }
 }

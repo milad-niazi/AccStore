@@ -21,25 +21,33 @@ Route::get('/', function () {
 Route::prefix('admin')->middleware([])->group(function () {
     Route::resource('dashboard', AdminDashboardController::class)
         ->names([
-            'index' => 'admin.dashboard.list',
-            'create' => 'admin.dashboard.add',
+            'index' => 'admin.dashboard.index',
+            'create' => 'admin.dashboard.create',
             'store' => 'admin.dashboard.store',
             'show' => 'admin.dashboard.view',
             'edit' => 'admin.dashboard.edit',
             'update' => 'admin.dashboard.update',
-            'destroy' => 'admin.dashboard.delete',
+            'destroy' => 'admin.dashboard.destroy',
         ]);
     Route::resource('users', AdminUserController::class)->names([
-        'index' => 'admin.users.list',
-        'create' => 'admin.dashboard.add',
-        'store' => 'admin.dashboard.store',
-        'show' => 'admin.dashboard.view',
-        'edit' => 'admin.dashboard.edit',
-        'update' => 'admin.dashboard.update',
-        'destroy' => 'admin.dashboard.delete',
+        'index' => 'admin.users.index',
+        'create' => 'admin.users.create',
+        'store' => 'admin.users.store',
+        'show' => 'admin.users.view',
+        'edit' => 'admin.users.edit',
+        'update' => 'admin.users.update',
+        'destroy' => 'admin.users.destroy',
     ]);
     Route::resource('accounts', AdminAccountController::class);
-    Route::resource('categories', AdminCategoryController::class);
+    Route::resource('categories', AdminCategoryController::class)->names([
+        'index' => 'admin.categories.index',
+        'create' => 'admin.categories.create',
+        'store' => 'admin.categories.store',
+        'show' => 'admin.categories.view',
+        'edit' => 'admin.categories.edit',
+        'update' => 'admin.categories.update',
+        'destroy' => 'admin.categories.destroy',
+    ]);
     Route::resource('orders', AdminOrderController::class);
 });
 

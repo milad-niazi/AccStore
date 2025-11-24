@@ -3,16 +3,30 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    protected $categoryRepo;
+    public function __construct(CategoryRepository $categoryRepo)
+    {
+        $this->categoryRepo = $categoryRepo;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        // $allCategoriesData = $this->categoryRepo->all();
+        // $allWithAccountsCount = $this->categoryRepo->allWithAccountsCount();
+        // $CategoriesData = [
+        //     'allCategoriesData' => $allCategoriesData,
+        //     'allWithAccountsCount' => $allWithAccountsCount
+        // ];
+        // return view('admin.categories.index', $CategoriesData);
+        $categories = $this->categoryRepo->allWithAccountsCount(); // همه دسته‌ها با accounts_count
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**

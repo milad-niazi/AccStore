@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="p-6 bg-gray-100 min-h-screen">
 
         <h1 class="text-2xl font-bold mb-6">Users Section</h1>
@@ -49,7 +54,7 @@
                                 {{-- دکمه حذف --}}
                                 {{-- {{ route('admin.users.destroy', $user->id) }} --}}
 
-                                <form action="#" method="POST">
+                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"

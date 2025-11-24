@@ -74,6 +74,10 @@ class CategoryRepository
     {
         return Category::with('accounts')->get();
     }
+    public function allWithAccountsCount()
+    {
+        return Category::withCount('accounts')->get();
+    }
     public function generateUniqueSlug(string $name, ?int $ignoreId = null): string
     {
         $slug = Str::slug($name);
