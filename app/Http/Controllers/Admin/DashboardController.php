@@ -25,30 +25,33 @@ class DashboardController extends Controller
     }
     public function index()
     {
+        // Users
         $totalUsers = $this->userRepo->allUsersCount();
         $activeUsers = $this->userRepo->activeUsersCount();
         $newUsersLastWeek = $this->userRepo->newUsersLastWeek();
 
+        // Accounts
         $totalAccounts = $this->accountRepo->allAccountsCount();
         $soldAccounts = $this->accountRepo->soldAccountsCount();
         $newAccountsLastWeek = $this->accountRepo->newAccountsLastWeek();
 
+        // Orders
         $totalOrders = $this->orderRepo->allOrdersCount();
         $completedOrders = $this->orderRepo->completedOrdersCount();
         $pendingOrders = $this->orderRepo->pendingOrdersCount();
         $totalRevenue = $this->orderRepo->totalRevenue();
 
         $dashboardData = [
-            'totalUsers' => $this->userRepo->allUsersCount(),
-            'activeUsers' => $this->userRepo->activeUsersCount(),
-            'newUsersLastWeek' => $this->userRepo->newUsersLastWeek(),
-            'totalAccounts' => $this->accountRepo->allAccountsCount(),
-            'soldAccounts' => $this->accountRepo->soldAccountsCount(),
-            'newAccountsLastWeek' => $this->accountRepo->newAccountsLastWeek(),
-            'totalOrders' => $this->orderRepo->allOrdersCount(),
-            'completedOrders' => $this->orderRepo->completedOrdersCount(),
-            'pendingOrders' => $this->orderRepo->pendingOrdersCount(),
-            'totalRevenue' => $this->orderRepo->totalRevenue(),
+            'totalUsers' => $totalUsers,
+            'activeUsers' => $activeUsers,
+            'newUsersLastWeek' => $newUsersLastWeek,
+            'totalAccounts' => $totalAccounts,
+            'soldAccounts' => $soldAccounts,
+            'newAccountsLastWeek' => $newAccountsLastWeek,
+            'totalOrders' => $totalOrders,
+            'completedOrders' => $completedOrders,
+            'pendingOrders' => $pendingOrders,
+            'totalRevenue' => $totalRevenue,
         ];
 
         return view('admin.dashboard', $dashboardData);

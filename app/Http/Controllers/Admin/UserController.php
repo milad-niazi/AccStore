@@ -2,17 +2,33 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository;
 
 class UserController extends Controller
 {
+    protected $userRepo;
+    public function __construct(UserRepository $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $totalUsersCount = $this->userRepo->allUsersCount();
+        $activeUsersCount = $this->userRepo->activeUsersCount();
+        $newUsersLastWeekCount = $this->userRepo->newUsersLastWeek();
+        $allUsersData = $this->userRepo->all();
+        $usersData = [
+            'totalUsersCount' => $totalUsersCount,
+            'activeUsersCount' => $activeUsersCount,
+            'newUsersLastWeekCount' => $newUsersLastWeekCount,
+            'allUsersData' => $allUsersData
+        ];
+        return view('admin.users.index', $usersData);
     }
 
     /**

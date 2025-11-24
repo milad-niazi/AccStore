@@ -19,8 +19,25 @@ Route::get('/', function () {
 
 // Admin Routes : middleware(['auth' , 'admin'])
 Route::prefix('admin')->middleware([])->group(function () {
-    Route::resource('dashboard', AdminDashboardController::class);
-    Route::resource('users', AdminUserController::class);
+    Route::resource('dashboard', AdminDashboardController::class)
+        ->names([
+            'index' => 'admin.dashboard.list',
+            'create' => 'admin.dashboard.add',
+            'store' => 'admin.dashboard.store',
+            'show' => 'admin.dashboard.view',
+            'edit' => 'admin.dashboard.edit',
+            'update' => 'admin.dashboard.update',
+            'destroy' => 'admin.dashboard.delete',
+        ]);
+    Route::resource('users', AdminUserController::class)->names([
+        'index' => 'admin.users.list',
+        'create' => 'admin.dashboard.add',
+        'store' => 'admin.dashboard.store',
+        'show' => 'admin.dashboard.view',
+        'edit' => 'admin.dashboard.edit',
+        'update' => 'admin.dashboard.update',
+        'destroy' => 'admin.dashboard.delete',
+    ]);
     Route::resource('accounts', AdminAccountController::class);
     Route::resource('categories', AdminCategoryController::class);
     Route::resource('orders', AdminOrderController::class);

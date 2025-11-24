@@ -12,28 +12,50 @@
 
 <body class="bg-gray-100 font-sans">
 
-    {{-- هدر --}}
-    <header class="bg-white shadow p-4">
-        <h1 class="text-xl font-bold">پنل ادمین</h1>
-    </header>
-
-    <div class="flex">
-
-        {{-- سایدبار --}}
-        <aside class="w-64 bg-gray-200 min-h-screen p-4">
-            <nav class="space-y-2">
-                {{-- <a href="{{ route('admin.dashboard.index') }}" class="block p-2 rounded hover:bg-gray-300">داشبورد</a>
-                <a href="{{ route('admin.users.index') }}" class="block p-2 rounded hover:bg-gray-300">کاربران</a>
-                <a href="{{ route('admin.accounts.index') }}" class="block p-2 rounded hover:bg-gray-300">اکانت‌ها</a>
-                <a href="{{ route('admin.orders.index') }}" class="block p-2 rounded hover:bg-gray-300">سفارش‌ها</a>
-                <a href="{{ route('admin.categories.index') }}" class="block p-2 rounded hover:bg-gray-300">دسته‌ها</a> --}}
+    <div class="flex min-h-screen bg-gray-100">
+        {{-- Sidebar --}}
+        <aside class="w-64 bg-white shadow-md">
+            <div class="p-6 text-xl font-bold border-b">Admin Panel</div>
+            <nav class="mt-6">
+                <ul class="flex flex-col gap-2">
+                    <li>
+                        <a href="{{ route('admin.dashboard.list') }}"
+                            class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.dashboard.*') ? 'bg-gray-200' : '' }}">
+                            Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.users.list') }}"
+                            class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.users.*') ? 'bg-gray-200' : '' }}">
+                            Users
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.accounts.*') ? 'bg-gray-200' : '' }}">
+                            Accounts
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.orders.*') ? 'bg-gray-200' : '' }}">
+                            Orders
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.categories.*') ? 'bg-gray-200' : '' }}">
+                            Categories
+                        </a>
+                    </li>
+                </ul>
             </nav>
         </aside>
 
-        {{-- محتوای اصلی --}}
-        <main class="flex-1 p-6">
+        {{-- Main content --}}
+        <div class="flex-1 p-6">
             @yield('content')
-        </main>
+        </div>
     </div>
 
     @yield('scripts')
