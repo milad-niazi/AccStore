@@ -5,26 +5,41 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\AccountRepository;
+use App\Repositories\CategoryRepository;
 
 class AccountController extends Controller
 {
-    protected $accountRepo;
+    protected AccountRepository $accountRepo;
+    protected CategoryRepository $categoryRepo;
 
-    // public function __construct(AccountRepository $accountRepo)
-    // {
-    //     $this->middleware('auth');
-    //     $this->accountRepo = $accountRepo;
-    // }
-
-    public function index()
+    public function __construct(AccountRepository $accountRepo, CategoryRepository $categoryRepo)
     {
+        // $this->middleware('auth');
+        $this->accountRepo = $accountRepo;
+        $this->categoryRepo = $categoryRepo;
+    }
+
+    public function index(Request $request)
+    {
+        $categories = $this->categoryRepo->all();
+        $selectedCategory = $request->query('category');
+
         $accounts = $this->accountRepo->all();
-        return view('admin.accounts.index', compact('accounts'));
+
+        if (!empty($selectedCategory)) {
+            $accounts = $accounts
+                ->where('category_id', (int) $selectedCategory)
+                ->values();
+        }
+
+        return view('admin.accounts.index', compact('accounts', 'categories', 'selectedCategory'));
     }
 
     public function create()
     {
-        return view('admin.accounts.create');
+        $categories = $this->categoryRepo->all();
+
+        return view('admin.accounts.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -33,10 +48,19 @@ class AccountController extends Controller
         return redirect()->route('admin.accounts.index')->with('success', 'Account created');
     }
 
+    public function show($id)
+    {
+        $account = $this->accountRepo->findById($id);
+
+        return view('admin.accounts.show', compact('account'));
+    }
+
     public function edit($id)
     {
-        $account = $this->accountRepo->find($id);
-        return view('admin.accounts.edit', compact('account'));
+        $account = $this->accountRepo->findById($id);
+        $categories = $this->categoryRepo->all();
+
+        return view('admin.accounts.edit', compact('account', 'categories'));
     }
 
     public function update(Request $request, $id)

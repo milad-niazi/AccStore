@@ -24,7 +24,7 @@ Route::prefix('admin')->middleware([])->group(function () {
             'index' => 'admin.dashboard.index',
             'create' => 'admin.dashboard.create',
             'store' => 'admin.dashboard.store',
-            'show' => 'admin.dashboard.view',
+            'show' => 'admin.dashboard.show',
             'edit' => 'admin.dashboard.edit',
             'update' => 'admin.dashboard.update',
             'destroy' => 'admin.dashboard.destroy',
@@ -38,7 +38,15 @@ Route::prefix('admin')->middleware([])->group(function () {
         'update' => 'admin.users.update',
         'destroy' => 'admin.users.destroy',
     ]);
-    Route::resource('accounts', AdminAccountController::class);
+    Route::resource('accounts', AdminAccountController::class)->names([
+        'index' => 'admin.accounts.index',
+        'create' => 'admin.accounts.create',
+        'store' => 'admin.accounts.store',
+        'show' => 'admin.accounts.show',
+        'edit' => 'admin.accounts.edit',
+        'update' => 'admin.accounts.update',
+        'destroy' => 'admin.accounts.destroy',
+    ]);
     Route::resource('categories', AdminCategoryController::class)->names([
         'index' => 'admin.categories.index',
         'create' => 'admin.categories.create',

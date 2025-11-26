@@ -37,7 +37,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('admin.accounts.index') }}"
                             class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.accounts.*') ? 'bg-gray-200' : '' }}">
                             Accounts
                         </a>
