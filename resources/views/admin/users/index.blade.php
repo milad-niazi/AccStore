@@ -46,8 +46,8 @@
                             <td class="border-b px-4 py-2">{{ $user->email }}</td>
                             <td class="border-b px-4 py-2 flex gap-2">
                                 {{-- دکمه اطلاعات --}}
-                                {{-- {{ route('admin.users.show', $user->id) }} --}}
-                                <a href="#" class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
+                                <a href="{{ route('admin.users.show', $user->id) }}"
+                                    class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600">
                                     Information
                                 </a>
 
