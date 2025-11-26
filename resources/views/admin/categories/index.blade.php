@@ -41,6 +41,10 @@
                             <td class="px-6 py-4">{{ $category->slug }}</td>
                             <td class="px-6 py-4">{{ $category->accounts_count ?? 0 }}</td>
                             <td class="px-6 py-4 flex gap-2">
+                                <a href="{{ route('admin.categories.show', $category->id) }}"
+                                    class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
+                                    View
+                                </a>
                                 <a href="{{ route('admin.categories.edit', $category->id) }}"
                                     class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500">
                                     Edit

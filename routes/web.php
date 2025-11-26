@@ -43,7 +43,7 @@ Route::prefix('admin')->middleware([])->group(function () {
         'index' => 'admin.categories.index',
         'create' => 'admin.categories.create',
         'store' => 'admin.categories.store',
-        'show' => 'admin.categories.view',
+        'show' => 'admin.categories.show',
         'edit' => 'admin.categories.edit',
         'update' => 'admin.categories.update',
         'destroy' => 'admin.categories.destroy',
