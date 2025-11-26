@@ -93,7 +93,7 @@ class CategoryRepository
 
     public function slugExists(string $slug, ?int $ignoreId = null): bool
     {
-        $query = Category::where('slug', $slug);
+        $query = Category::withTrashed()->where('slug', $slug);
         if ($ignoreId) {
             $query->where('id', '!=', $ignoreId);
         }

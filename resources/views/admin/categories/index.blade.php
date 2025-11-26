@@ -18,6 +18,7 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">#</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Image</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Slug</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Accounts Count</th>
@@ -28,6 +29,14 @@
                     @forelse($categories as $category)
                         <tr>
                             <td class="px-6 py-4">{{ $category->id }}</td>
+                            <td class="px-6 py-4">
+                                @if ($category->primary_image)
+                                    <img src="{{ asset('categories/' . $category->primary_image) }}"
+                                        alt="{{ $category->name }}" class="h-12 w-12 object-cover rounded border" />
+                                @else
+                                    <span class="text-gray-400 text-sm">No image</span>
+                                @endif
+                            </td>
                             <td class="px-6 py-4">{{ $category->name }}</td>
                             <td class="px-6 py-4">{{ $category->slug }}</td>
                             <td class="px-6 py-4">{{ $category->accounts_count ?? 0 }}</td>

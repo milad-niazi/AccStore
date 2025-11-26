@@ -34,7 +34,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -42,7 +42,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'primary_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        if (!$request->hasFile('primary_image')) {
+            unset($data['primary_image']);
+        }
+
+        $this->categoryRepo->create($data);
+
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category created successfully.');
     }
 
     /**
@@ -50,7 +64,9 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = $this->categoryRepo->find($id);
+
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -58,7 +74,9 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = $this->categoryRepo->find($id);
+
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -66,7 +84,21 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'primary_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        if (!$request->hasFile('primary_image')) {
+            unset($data['primary_image']);
+        }
+
+        $this->categoryRepo->update($id, $data);
+
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -74,6 +106,10 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->categoryRepo->delete($id);
+        return redirect()
+            ->route('admin.categories.index')
+            ->with('success', 'Category deleted successfully.');
     }
+
 }

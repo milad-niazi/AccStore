@@ -81,6 +81,6 @@ class UserController extends Controller
         $this->userRepo->delete($id);
         return redirect()
             ->route('admin.users.index')
-            ->with('success', 'کاربر با موفقیت حذف شد.');
+            ->with('success', 'User deleted successfully.');
     }
 }
