@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\OrderRepository;
 
 class OrderController extends Controller
 {
+    protected $orderRepo;
+
+    public function __construct(OrderRepository $orderRepo)
+    {
+        $this->orderRepo = $orderRepo;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $orders = $this->orderRepo->all();
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -36,7 +44,8 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $order = $this->orderRepo->findById($id);
+        return view('admin.orders.show', compact('order'));
     }
 
     /**
@@ -60,6 +69,7 @@ class OrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->orderRepo->delete($id);
+        return redirect()->route('admin.orders.index')->with('success', 'Order deleted successfully');
     }
 }

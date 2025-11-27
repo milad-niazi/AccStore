@@ -46,7 +46,7 @@ class OrderRepository
         if (!$orderitem) {
             throw new ModelNotFoundException("Model not found");
         }
-        return Order::with('accounts')->findOrFail($id);
+        return Order::with(['user', 'orderItems.account.category'])->findOrFail($id);
     }
 
     public function create(array $data)
@@ -59,8 +59,8 @@ class OrderRepository
         if (!$orderitem) {
             throw new ModelNotFoundException("Model not found");
         }
-        $id->update($data);
-        return $id;
+        $orderitem->update($data);
+        return $orderitem;
     }
     public function delete($id)
     {
@@ -68,6 +68,6 @@ class OrderRepository
         if (!$orderitem) {
             throw new ModelNotFoundException("Model not found");
         }
-        return $id->delete();
+        return $orderitem->delete();
     }
 }
