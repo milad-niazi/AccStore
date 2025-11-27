@@ -1,5 +1,7 @@
 # AccStore
 
+> **⚠️ Development Status**: This project is currently under active development and is not yet complete. Some features may be incomplete or subject to change. This README will be updated once the project reaches completion.
+
 A comprehensive account marketplace platform built with Laravel, designed for buying and selling digital accounts (Netflix, Spotify, Udemy, Duolingo, Canva, etc.).
 
 ## 📋 About
