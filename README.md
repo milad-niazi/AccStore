@@ -1,59 +1,159 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# AccStore
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive account marketplace platform built with Laravel, designed for buying and selling digital accounts (Netflix, Spotify, Udemy, Duolingo, Canva, etc.).
 
-## About Laravel
+## 📋 About
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+AccStore is a full-featured e-commerce platform that enables users to browse, purchase, and manage digital account listings. The platform includes a complete admin panel for managing accounts, categories, orders, and transactions, along with a RESTful API for integration with external systems.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Core Functionality
+- **Account Management**: Create, update, and manage account listings with details like username, password, price, and status
+- **Category System**: Organize accounts into categories with images and descriptions
+- **Order Processing**: Complete order management system with status tracking (pending, paid, failed, cancelled)
+- **Transaction Handling**: Payment gateway integration with transaction tracking
+- **User Management**: User registration, authentication, and profile management
+- **Admin Dashboard**: Comprehensive admin panel for managing all aspects of the platform
 
-## Learning Laravel
+### Technical Features
+- **RESTful API**: Full API endpoints for all resources with Laravel Sanctum authentication
+- **Repository Pattern**: Clean architecture with repository pattern implementation
+- **Soft Deletes**: Data preservation with soft delete functionality
+- **Image Upload**: Category image management
+- **Status Management**: Track account availability (available/sold) and order statuses
+- **Payment Integration**: Support for multiple payment gateways
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠️ Tech Stack
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Framework**: Laravel 12
+- **PHP**: 8.2+
+- **Authentication**: Laravel Sanctum
+- **Database**: SQLite (configurable to MySQL/PostgreSQL)
+- **Frontend**: Blade Templates
+- **API**: RESTful API with JSON responses
 
-## Laravel Sponsors
+## 📁 Project Structure
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```
+AccStore/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Admin/        # Admin panel controllers
+│   │   │   ├── Api/          # API controllers
+│   │   │   └── Web/          # Web controllers
+│   │   └── Resources/        # API resources
+│   ├── Models/               # Eloquent models
+│   ├── Repositories/         # Repository pattern implementation
+│   └── Traits/               # Reusable traits
+├── database/
+│   ├── migrations/           # Database migrations
+│   ├── factories/           # Model factories
+│   └── seeders/             # Database seeders
+├── resources/
+│   └── views/
+│       ├── admin/           # Admin panel views
+│       └── layouts/         # Layout templates
+└── routes/
+    ├── api.php              # API routes
+    └── web.php              # Web routes
+```
 
-### Premium Partners
+## 🗄️ Database Schema
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Main Models
+- **Users**: User accounts and authentication
+- **Categories**: Account categories with images
+- **Accounts**: Account listings (username, password, price, status)
+- **Orders**: Customer orders with status tracking
+- **OrderItems**: Items within orders
+- **Transactions**: Payment transactions with gateway support
 
-## Contributing
+## 🚀 Installation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/AccStore.git
+   cd AccStore
+   ```
 
-## Code of Conduct
+2. **Install dependencies**
+   ```bash
+   composer install
+   npm install
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Security Vulnerabilities
+4. **Database setup**
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. **Start the development server**
+   ```bash
+   php artisan serve
+   npm run dev
+   ```
 
-## License
+## 📡 API Endpoints
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Authentication
+- `POST /api/register` - User registration
+- `POST /api/login` - User login
+- `POST /api/logout` - User logout (requires authentication)
+
+### Resources
+- `GET/POST/PUT/DELETE /api/users` - User management
+- `GET/POST/PUT/DELETE /api/accounts` - Account management
+- `GET/POST/PUT/DELETE /api/categories` - Category management
+- `GET/POST/PUT/DELETE /api/orders` - Order management
+- `GET/POST/PUT/DELETE /api/order-items` - Order item management
+- `GET/POST/PUT/DELETE /api/transactions` - Transaction management
+
+All API endpoints return JSON responses and use Laravel Sanctum for authentication.
+
+## 🔐 Admin Panel
+
+Access the admin panel at `/admin` with the following features:
+- Dashboard overview
+- User management
+- Account management (CRUD operations)
+- Category management with image upload
+- Order management and tracking
+- Transaction monitoring
+
+## 🎯 Key Features Implemented
+
+- ✅ User authentication and authorization
+- ✅ Account listing and management
+- ✅ Category system with image support
+- ✅ Order processing workflow
+- ✅ Transaction tracking
+- ✅ Admin dashboard
+- ✅ RESTful API
+- ✅ Repository pattern architecture
+- ✅ Soft deletes for data preservation
+- ✅ Status management (accounts, orders, transactions)
+
+## 📝 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📧 Contact
+
+For questions or support, please open an issue on GitHub.
+
+---
+
+Built with ❤️ using Laravel
