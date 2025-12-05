@@ -1,5 +1,5 @@
 {{-- resources/views/admin/dashboard.blade.php --}}
-@extends('layouts.admin') {{-- مطمئن شو لایوت admin داری --}}
+@extends('layouts.admin')
 
 @section('content')
     <div class="p-6 bg-gray-100 min-h-screen">

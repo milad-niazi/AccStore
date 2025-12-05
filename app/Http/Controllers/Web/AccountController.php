@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Repositories\AccountRepository;
+use App\Repositories\CategoryRepository;
 
 class AccountController extends Controller
 {
+    protected AccountRepository $accountRepo;
+    protected CategoryRepository $categoryRepo;
+
+    public function __construct(AccountRepository $accountRepo, CategoryRepository $categoryRepo)
+    {
+        // $this->middleware('auth');
+        $this->accountRepo = $accountRepo;
+        $this->categoryRepo = $categoryRepo;
+    }
     /**
      * Display a listing of the resource.
      */

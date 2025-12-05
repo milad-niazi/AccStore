@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('web.home.index');
 });
 
 // Admin Routes : middleware(['auth' , 'admin'])
