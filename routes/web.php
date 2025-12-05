@@ -65,6 +65,15 @@ Route::prefix('admin')->middleware([])->group(function () {
         'update' => 'admin.orders.update',
         'destroy' => 'admin.orders.destroy',
     ]);
+    Route::resource('homepage', AdminOrderController::class)->names([
+        'index' => 'admin.homepage.index',
+        'create' => 'admin.homepage.create',
+        'store' => 'admin.homepage.store',
+        'show' => 'admin.homepage.show',
+        'edit' => 'admin.homepage.edit',
+        'update' => 'admin.homepage.update',
+        'destroy' => 'admin.homepage.destroy',
+    ]);
 });
 
 // Route::prefix('web')->group(function () {

@@ -48,6 +48,12 @@
                             Orders
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.homepage.index') }}"
+                            class="block px-6 py-3 rounded hover:bg-gray-200 {{ request()->routeIs('admin.home.*') ? 'bg-gray-200' : '' }}">
+                            Home Page Settings
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </aside>
