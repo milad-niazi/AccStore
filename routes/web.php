@@ -1,21 +1,25 @@
 <?php
 
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\HomePage\SliderController;
+use App\Http\Controllers\Admin\HomePage\HomeController as AdminHomeController;
 //  WEB
-use App\Http\Controllers\Web\CategoryController as WebCategoryController;
+use Illuminate\Support\Facades\Route;
 
 // ADMIN
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Web\HomeController as WebHomeController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Web\CategoryController as WebCategoryController;
+use App\Http\Controllers\Admin\AccountController as AdminAccountController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
+// Route::get('/', function () {
+//     return view('web.home.index');
+// });
 
-Route::get('/', function () {
-    return view('web.home.index');
-});
+Route::get('/', [WebHomeController::class, 'index']);
 
 // Admin Routes : middleware(['auth' , 'admin'])
 Route::prefix('admin')->middleware([])->group(function () {
@@ -65,15 +69,19 @@ Route::prefix('admin')->middleware([])->group(function () {
         'update' => 'admin.orders.update',
         'destroy' => 'admin.orders.destroy',
     ]);
-    Route::resource('homepage', AdminOrderController::class)->names([
-        'index' => 'admin.homepage.index',
-        'create' => 'admin.homepage.create',
-        'store' => 'admin.homepage.store',
-        'show' => 'admin.homepage.show',
-        'edit' => 'admin.homepage.edit',
-        'update' => 'admin.homepage.update',
-        'destroy' => 'admin.homepage.destroy',
-    ]);
+    Route::prefix('homepage')->name('admin.homepage.')->group(function () {
+        Route::get('/', [AdminHomeController::class, 'index'])->name('index');
+
+        Route::resource('sliders', SliderController::class)->names([
+            'index' => 'sliders.index',
+            'create' => 'sliders.create',
+            'store' => 'sliders.store',
+            'show' => 'sliders.show',
+            'edit' => 'sliders.edit',
+            'update' => 'sliders.update',
+            'destroy' => 'sliders.destroy',
+        ]);
+    });
 });
 
 // Route::prefix('web')->group(function () {
