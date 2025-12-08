@@ -1,17 +1,18 @@
-    <section class="mt-4 container mx-auto px-4">
-        <div class="swiper bannerSwiper rounded-xl overflow-hidden shadow-lg">
-            <div class="swiper-wrapper">
+<section class="mt-4 container mx-auto px-4">
+    <div class="swiper bannerSwiper rounded-xl overflow-hidden shadow-lg">
+        <div class="swiper-wrapper">
+            @foreach ($sliders as $slider)
                 <div class="swiper-slide">
-                    <img src="https://via.placeholder.com/1200x350" class="w-full" />
+                    <img src="{{ asset('sliders/' . $slider->image) }}" class="w-full object-cover rounded-xl"
+                        alt="{{ $slider->title }}">
                 </div>
-                <div class="swiper-slide">
-                    <img src="https://via.placeholder.com/1200x350?text=Banner+2" class="w-full" />
-                </div>
-                <div class="swiper-slide">
-                    <img src="https://via.placeholder.com/1200x350?text=Banner+3" class="w-full" />
-                </div>
-            </div>
-
-            <div class="swiper-pagination"></div>
+            @endforeach
         </div>
-    </section>
+
+        <div class="swiper-pagination"></div>
+
+        <!-- Optional navigation arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</section>
