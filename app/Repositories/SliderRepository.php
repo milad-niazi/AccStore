@@ -35,7 +35,18 @@ class SliderRepository
     public function update($id, array $data)
     {
         $slider = $this->find($id);
+
+        if (isset($data['image']) && $data['image'] instanceof \Illuminate\Http\UploadedFile) {
+
+            if ($slider->image && file_exists(public_path('sliders/' . $slider->image))) {
+                unlink(public_path('sliders/' . $slider->image));
+            }
+
+            $data['image'] = $this->uploadPrimaryImage($data['image']);
+        }
+
         $slider->update($data);
+
         return $slider;
     }
 
@@ -67,5 +78,11 @@ class SliderRepository
             \Illuminate\Support\Facades\Storage::disk('public')->delete($slider->image);
         }
         $slider->forceDelete();
+    }
+    public function uploadPrimaryImage($file)
+    {
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('sliders'), $filename);
+        return $filename;
     }
 }
