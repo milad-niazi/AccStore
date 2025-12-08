@@ -31,10 +31,10 @@
                                 <td class="px-6 py-4">{{ $slider->title ?? 'N/A' }}</td>
                                 <td class="px-6 py-4">
                                     @if ($slider->image)
-                                        <img src="{{ asset('storage/' . $slider->image) }}" alt="Slider Image"
-                                            class="h-12 w-24 object-cover rounded">
+                                        <img src="{{ asset('sliders/' . $slider->image) }}" alt="{{ $slider->title }}"
+                                            class="w-48 h-auto object-cover rounded border" />
                                     @else
-                                        N/A
+                                        <span class="text-gray-400 text-sm">No image</span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">
@@ -46,13 +46,6 @@
                                 <td class="px-6 py-4 flex gap-2">
                                     <a href="{{ route('admin.homepage.sliders.edit', $slider->id) }}"
                                         class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500">Edit</a>
-                                    <form action="{{ route('admin.homepage.sliders.destroy', $slider->id) }}" method="POST"
-                                        onsubmit="return confirm('Are you sure?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Delete</button>
-                                    </form>
                                 </td>
                             </tr>
                         @empty
