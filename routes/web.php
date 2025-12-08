@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\Admin\HomePage\SliderController;
 use App\Http\Controllers\Admin\HomePage\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\HomePage\ReviewController;
 //  WEB
 use Illuminate\Support\Facades\Route;
 
@@ -74,13 +75,22 @@ Route::prefix('admin')->middleware([])->group(function () {
 
         Route::resource('sliders', SliderController::class)->names([
             'index' => 'sliders.index',
-            'create' => 'sliders.create',
-            'store' => 'sliders.store',
-            'show' => 'sliders.show',
             'edit' => 'sliders.edit',
             'update' => 'sliders.update',
-            'destroy' => 'sliders.destroy',
         ]);
+        // Resource برای reviews
+        Route::resource('reviews', ReviewController::class)->names([
+            'index' => 'reviews.index',
+            'create' => 'reviews.create',
+            'store' => 'reviews.store',
+            'edit' => 'reviews.edit',
+            'update' => 'reviews.update',
+            'destroy' => 'reviews.destroy',
+        ]);
+
+        // مسیر toggle status جداگانه
+        Route::patch('reviews/{review}/toggle-status', [ReviewController::class, 'toggleStatus'])
+            ->name('reviews.toggleStatus');
     });
 });
 

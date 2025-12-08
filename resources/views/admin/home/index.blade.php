@@ -3,7 +3,6 @@
 @section('content')
     @php
         $banners = [];
-        $reviews = [];
         $recommendedProducts = [];
     @endphp
     <div class="p-6 bg-gray-100 min-h-screen">
@@ -69,6 +68,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">User</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Review</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rating</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                         </tr>
                     </thead>
@@ -79,9 +79,22 @@
                                 <td class="px-6 py-4">{{ $review->user->name ?? 'N/A' }}</td>
                                 <td class="px-6 py-4">{{ $review->content ?? 'N/A' }}</td>
                                 <td class="px-6 py-4">{{ $review->rating ?? 'N/A' }}</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="px-2 py-1 rounded text-xs font-medium {{ $review->is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                                        {{ $review->is_active ? 'Active' : 'Inactive' }}
+                                    </span>
+                                </td>
                                 <td class="px-6 py-4 flex gap-2">
-                                    <a href="{{ route('admin.homepage.reviews.edit', $review->id) }}"
-                                        class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500">Edit</a>
+                                    <form action="{{ route('admin.homepage.reviews.toggleStatus', $review->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="submit"
+                                            class="px-3 py-1 rounded text-white {{ $review->is_active ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700' }}">
+                                            {{ $review->is_active ? 'Deactivate' : 'Activate' }}
+                                        </button>
+                                    </form>
                                     <form action="{{ route('admin.homepage.reviews.destroy', $review->id) }}"
                                         method="POST" onsubmit="return confirm('Are you sure?');">
                                         @csrf
@@ -93,13 +106,14 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-4 text-center text-gray-500">No reviews found.</td>
+                                <td colspan="6" class="px-6 py-4 text-center text-gray-500">No reviews found.</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
+
 
         {{-- ---------------- Recommended Products ---------------- --}}
         <div class="mb-8">
