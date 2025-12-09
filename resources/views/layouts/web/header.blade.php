@@ -21,10 +21,10 @@
             <h1 class="text-xl font-bold">ACC STORE</h1>
 
             <nav class="hidden md:flex gap-6 text-sm">
-                <a href="#" class="hover:text-blue-500">خانه</a>
-                <a href="#" class="hover:text-blue-500">دسته‌بندی‌ها</a>
-                <a href="#" class="hover:text-blue-500">ارتباط با ما</a>
-                <a href="#" class="hover:text-blue-500">درباره ما</a>
+                <a href="#" class="hover:text-blue-500">Home</a>
+                <a href="#" class="hover:text-blue-500">Accounts</a>
+                <a href="#" class="hover:text-blue-500">Contact Us</a>
+                <a href="#" class="hover:text-blue-500">About Us</a>
             </nav>
 
             <button class="md:hidden text-2xl">☰</button>
