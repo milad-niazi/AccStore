@@ -20,6 +20,7 @@ class HomeController extends Controller
     public function index()
     {
         $sliders = $this->sliderRepo->all();
-        return view('admin.home.index', compact('sliders'));
+        $reviews = $this->reviewRepo->all();
+        return view('admin.home.index', compact('sliders', 'reviews'));
     }
 }

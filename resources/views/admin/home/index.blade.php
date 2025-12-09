@@ -2,7 +2,6 @@
 
 @section('content')
     @php
-        $banners = [];
         $recommendedProducts = [];
     @endphp
     <div class="p-6 bg-gray-100 min-h-screen">

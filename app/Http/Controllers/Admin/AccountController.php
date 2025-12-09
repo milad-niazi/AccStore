@@ -18,7 +18,6 @@ class AccountController extends Controller
         $this->accountRepo = $accountRepo;
         $this->categoryRepo = $categoryRepo;
     }
-
     public function index(Request $request)
     {
         $categories = $this->categoryRepo->all();
